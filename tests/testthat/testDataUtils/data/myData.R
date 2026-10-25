@@ -1,1 +1,2 @@
-myData <- read.csv(text = "a,b,c\n1,2,3\n")
+myData <- read.csv(system.file("extdata", "data.csv", package = "testDataUtils"))
+myData$a <- add_one(myData$a)

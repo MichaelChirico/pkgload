@@ -225,8 +225,6 @@ load_all <- function(
   # Add shim objects to imports environment
   insert_imports_shims(package)
 
-  out$data <- load_data(path)
-
   out$code <- load_code(path, quiet = quiet)
   register_s3(path)
   if (identical(compile, FALSE)) {
@@ -234,6 +232,8 @@ load_all <- function(
   } else {
     out$dll <- load_dll(path)
   }
+
+  out$data <- load_data(path)
 
   # attach testthat to the search path
   if (isTRUE(attach_testthat) && package != "testthat") {

@@ -1,4 +1,4 @@
-test_that("load_data can load .R files that use utils functions in a clean environment", {
+test_that("load_data can load .R files that use utils, shims, and package code in a clean environment", {
   pkg_path <- normalizePath(test_path("testDataUtils"), mustWork = TRUE)
   
   expect_equal(

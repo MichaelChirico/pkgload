@@ -40,11 +40,12 @@ load_data <- function(path = ".") {
   evalq(library(utils))
 
   # We source the .R files into lazydata_env, but we want them to be
-  # able to find functions in the default packages like utils.
-  # By default lazydata_env inherits from base, bypassing the search path.
-  # We temporarily change its parent to .GlobalEnv so it can see the search path.
+  # able to find functions in the default packages like utils, as well as
+  # functions in the package namespace and imports (such as system.file shims).
+  # By default lazydata_env inherits from base, bypassing the namespace and
+  # search path. We temporarily change its parent to nsenv so it can see both.
   old_parent <- parent.env(lazydata_env)
-  parent.env(lazydata_env) <- .GlobalEnv
+  parent.env(lazydata_env) <- nsenv
   on.exit(parent.env(lazydata_env) <- old_parent, add = TRUE)
 
   # sys.source() returns invisible() so it doesn't return the names of the
